@@ -8,6 +8,7 @@ body{
 
     background-color: black;
     transition: background-color 500ms;
+    color: white;
 }
 
 .page{
@@ -22,8 +23,8 @@ body{
     transition: background-color 500ms;
 }
 .page-welcome{
-    /* display: block; */
-    display: none;    
+    display: block;
+    /* display: none;     */
     text-align: left;
     padding: 10px;
 }
@@ -61,10 +62,11 @@ body{
 }
 
 .page-cross{
-    display: block;
+    display: none;
     transition: none !important;
     background-image: url('../img/cross.png');
-    background-size: 100%;
+    background-size: 75%;
+    background-position: center;
     background-repeat: no-repeat;
 }
 

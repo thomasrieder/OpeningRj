@@ -79,6 +79,7 @@ socket.on('newImage', function(data){
 
     var defWidth = data.w;
     var defHeight = data.h;
+    var divisor = 3;
 
     //add Image on html
     $('.page-images').append('<img id="'+id+'" class="image" src="'+data.img+'">');
@@ -97,8 +98,8 @@ socket.on('newImage', function(data){
     });
 
     //minimize the image
-    var width =  defWidth / 2;
-    var height =  defHeight / 2;
+    var width =  defWidth / divisor;
+    var height =  defHeight / divisor;
 
     //gen new random pos
     var leftPos = Math.floor((Math.random() * ($('.page-images').width() - width)) + 1);

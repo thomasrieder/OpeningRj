@@ -39,12 +39,14 @@ socket.on('setUserStep', function(data){
 //ask confirmation before refresh or quit the app
 // window.onbeforeunload = function() {
     
-//     return "Do you really want to leave our brilliant application?";
+//     return "quit message";
 // };
 
 function changeBrowser(){
     
-    $('.page-welcome').html('<h1>:(</h1><br><h2>L\'expérience ne va pas marcher sur ce navigateur...</h2><br><h3>Avez-vous Google Chrome ?</h3><br><a class="link-chrome" href="googlechrome://navigate?url=http://192.168.0.18:8080"><h3>ouvrir dans Google Chrome</h3</a>');
+    //alert('1googlechrome://navigate?url='+ip);
+    // $('.page-welcome').html('<h1>:(</h1><br><h2>L\'expérience ne va pas marcher sur ce navigateur...</h2><br><h3>Avez-vous Google Chrome ?</h3><br><h3><a ontouchstart="alert();" class="link-chrome" href="googlechrome://navigate?url='+ip+'">ouvrir dans Google Chrome</a></h3>');
+    $('body').html('<h1>:(</h1><br><h2>L\'expérience ne va pas marcher sur ce navigateur...</h2><br><h3>Avez-vous Google Chrome ?</h3><br><h3><a class="link-chrome" href="googlechrome://navigate?url='+ip+'">ouvrir dans Google Chrome</a></h3>');
 }
 
 
@@ -92,10 +94,10 @@ function setStep(step){
 
         playVideo();
     }else if(step == 210){
-
-        setPage('page-cross');
+        
         crossIsBlinking = 1;
         blinkCross();
+        setPage('page-cross');
     }
 }
 
