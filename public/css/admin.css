@@ -1,0 +1,21 @@
+
+.admin-content{
+    opacity: 0.1;
+}
+
+.step-button{
+    background-color: lightgray;
+    border: 0;
+    padding: 10px;
+}
+
+.wait{
+    text-align: center;
+    margin-top: 50%;    
+}
+
+.info{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

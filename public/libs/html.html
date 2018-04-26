@@ -1,0 +1,62 @@
+<html>
+    <head>
+        
+        <style>
+            body{
+                background-color: black;
+            }
+            div{
+                position: absolute;
+                background-color: white;
+                box-shadow: 1px 1px 260px white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="foot"></div>
+        <div class="top"></div>
+        
+        <script src="jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+            
+            $(document).ready(function(){
+            
+                $('.foot').css({
+                    'width': '100px',
+                    'height': $('body').height() - 200,
+                    'left': $('body').width()/2-50,
+                    'top': '100px'
+                });
+
+                $('.top').css({
+                    'height': '100px',
+                    'width': $('body').width() - 200,
+                    'left': '100px',
+                    'top': $('body').height()/2 - 350
+                });
+                blink();
+            });
+
+            function blink(){
+
+                var op = (Math.random());
+                var shad = Math.floor((Math.random() * 300) + 100);
+                console.log(op);
+
+                $('.top').css({
+                    'opacity': op,
+                });
+                $('.foot').css({
+                    'opacity': op,
+                });
+
+                setTimeout(function(){
+                    
+                    blink();
+                }, 1000);
+            }
+        </script>
+
+        
+    </body>
+</html>

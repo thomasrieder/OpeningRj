@@ -1,0 +1,62 @@
+<html>
+    <head>
+
+            <meta name="viewport" content="width=device-width, user-scalable=no">
+            <link rel="stylesheet" type="text/css" href="../css/admin.css">
+    </head>
+    <body>
+        <h1 class="wait">Wait...</h1>
+        
+        <div class="info">
+            
+        </div>
+        <div class="admin-content">
+
+            <div class="panel">
+                <h3>Welcome</h3>
+                <button class="step-button" step="0">welcome</button>
+                <button class="step-button" step="100">yellow</button>
+                <button class="step-button" step="105">veille</button>
+                <button class="step-button hide-txt" step="106">hide text</button>
+            </div>
+
+
+            <div class="panel">
+                <h3>Questions</h3>
+                <button class="question-button step-button" step="1">Q#1</button>
+                <button class="question-button step-button" step="2">Q#2</button>
+                <button class="question-button step-button" step="3">Q#3</button>
+                <button class="question-button step-button" step="4" disabled>Q#4</button>
+            </div>    
+
+            <br>
+            <hr>
+
+            <div class="panel">
+                <h3>Dessiner le logo</h3>
+                <button class="step-button" step="10">Commencer</button>
+            </div>
+
+            <br>
+            <hr>
+
+            <div class="panel">
+                <h3>Vidéo</h3>
+                <button class="video-button step-button" step="20">Afficher</button>
+                <button class="video-button step-button" step="21">Lancer</button>
+            </div>
+
+            <br>
+            <hr>
+
+            <div class="panel">
+                <h3>Dessiner signature</h3>
+                <button class="step-button">Commencer</button>
+            </div>
+        </div>
+
+        <script src="../libs/socket.io.js"></script>
+        <script src="../libs/jquery-3.3.1.min.js"></script>
+        <script src="../js/admin.js"></script>
+    </body>
+</html>
