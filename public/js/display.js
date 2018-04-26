@@ -1,4 +1,5 @@
-var socket = io.connect('http://192.168.0.18:8080');
+var ip = location.host;
+var socket = io.connect(ip);
 
 $(document).ready(function(){
     
@@ -14,9 +15,9 @@ socket.on('welcome', function(currentStep){
 /**
  * SHOW QUESTIONS
  */
-socket.on('setUserStep', function(step){
+socket.on('setUserStep', function(data){
 
-    setStep(step);
+    setStep(data.step);
 });
 
 function setStep(step){

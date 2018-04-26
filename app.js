@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-server.listen(3000);
+server.listen(80);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -39,6 +39,7 @@ app.get('/', function(req, res){
  * 105 -> veille
  * 106 -> hide text
  * 110 -> half of clients
+ * 210 -> show Cross
  * 1 -> question 1
  * 2 -> question 2
  * 3 -> question 3

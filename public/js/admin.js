@@ -1,4 +1,5 @@
-var socket = io.connect('http://192.168.0.18:8080');
+var ip = location.host;
+var socket = io.connect(ip);
 
 socket.on('welcome', function(step){
 

@@ -22,7 +22,8 @@ body{
     transition: background-color 500ms;
 }
 .page-welcome{
-    display: block;    
+    /* display: block; */
+    display: none;    
     text-align: left;
     padding: 10px;
 }
@@ -59,6 +60,13 @@ body{
     display: none;
 }
 
+.page-cross{
+    display: block;
+    transition: none !important;
+    background-image: url('../img/cross.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 
 /**
 * WELCOME PAGE

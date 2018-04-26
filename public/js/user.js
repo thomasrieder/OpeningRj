@@ -91,6 +91,11 @@ function setStep(step){
     }else if(step == 21){
 
         playVideo();
+    }else if(step == 210){
+
+        setPage('page-cross');
+        crossIsBlinking = 1;
+        blinkCross();
     }
 }
 
@@ -109,6 +114,31 @@ function setPage(newPage){
 
         }); 
     });
+}
+
+/**
+ * BLINK CROSS
+ */
+
+var crossIsBlinking = 0;
+var crossOp;
+var crossTime;
+
+function blinkCross(){
+
+    crossOp = Math.random();
+    crossTime = Math.floor(Math.random() * 60) + 10;
+    console.log(crossTime);
+    
+    $('.page-cross').css('opacity', crossOp);
+    
+
+    setTimeout(function(){
+
+        if(crossIsBlinking){
+            blinkCross();
+        }
+    }, crossTime);
 }
 
 /**
@@ -156,7 +186,7 @@ function toggleText(){
 
  function downloadVideo(){
 
-    $('.page-video').append('<video muted playsinline src="../video/vid.mp4" id="vid" preload="auto"></video>');
+    $('.page-video').append('<video muted playsinline src="https://s3.eu-central-1.amazonaws.com/rj2018/vid.mp4" id="vid" preload="auto"></video>');
 
     
     console.log('load video');
