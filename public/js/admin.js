@@ -56,7 +56,7 @@ function setColorButton(step){
 
 function ee(){
     bb();
-    $('#ee').html('<h1><br>ça fait les couleurs du portugal<br></h1><p>(en faisant ça j\'ai pris le risque de tout casser :$)<br>Bonne soirée :*</p>');
+    $('#ee').html('<h1><br>ça fait les couleurs du portugal<br></h1><p>Bonne soirée :*</p>');
 }
 var k = 0;
 function bb(){
