@@ -55,26 +55,6 @@ function setColorButton(step){
 }
 
 function ee(){
-    bb();
-    $('#ee').html('<h1><br>ça fait les couleurs du portugal<br></h1><h2>Bonne soirée :*</h2>');
-}
-var k = 0;
-function bb(){
-
-    if(k == 0){
-
-        $('body').css('background-color', 'red');
-        $('#ee').css('color', 'green');
-        k = 1;
-    }else{
-
-        $('body').css('background-color', 'green');
-        $('#ee').css('color', 'red');
-        k = 0;
-    }
-
-    setTimeout(function(){
-        
-        bb();
-    },600);
+    
+    $('body').css('background-image', 'url(../img/cross.png)');
 }
