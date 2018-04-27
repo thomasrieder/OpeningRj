@@ -35,7 +35,6 @@ socket.on('setUserStep', function(data){
     setStep(data.step);
 });
 
-
 //ask confirmation before refresh or quit the app
 // window.onbeforeunload = function() {
     
@@ -78,7 +77,7 @@ function setStep(step){
 
     }else if(step > 0 && step < 10){
         
-        setPage('page-question-'+step);  
+        setPage('page-question-'+step, step);  
         setClickButton(step);      
 
     }else if(step == 10){
@@ -98,10 +97,14 @@ function setStep(step){
         crossIsBlinking = 1;
         blinkCross();
         setPage('page-cross');
+    }else if(step = 900){
+        
+        setPage('page-welcome');
+        $('.page-welcome').html('<h1>Merci d\'avoir participer à ce test</h1><h2 style="margin-top: 50px;">On a quelques questions à te poser pour améliorer l\'expérience.<br><br></h2><h2>Merci de prendre quelques minutes pour ça :)</h2><br><br><h2><a  style="color: yellow;" href="https://goo.gl/forms/kxBuQPTyzEKuDEuD3">ça se passe ici</a></h2>');
     }
 }
 
-function setPage(newPage){
+function setPage(newPage, step){
 
     $('.page').animate({
         'opacity': 0
@@ -109,11 +112,18 @@ function setPage(newPage){
         
         $('.page').css('display', 'none');
         $('.'+newPage).css('display', 'block');
+        
+        if(step >= 1 && step <= 10){
+            
+            setBuzzerButton(step);
+        }        
 
         $('.'+newPage).animate({
             'opacity': 1
         }, 500, function(){
-
+            
+        }).promise().then(function(){
+            
         }); 
     });
 }
@@ -236,7 +246,7 @@ function checkVideo(){
 function readyToPlay(video){
 
     socket.emit('videoLoaded');
-    $('.page-video').css('background-color', 'green');
+    $('.page-video').css('background-color', 'yellow');
 }
 
 
@@ -299,7 +309,7 @@ function touchMove(){
         
         socket.emit('sendImage', {img: imgSend, w: width, h: height});
         
-        clearctx(ctx);
+        //clearctx(ctx);
         sendFeedback();
     });
 }
@@ -311,16 +321,20 @@ function sendFeedback(){
     $('.send-button').css('display', 'none');
     $('.remove-button').css('display', 'none');
 
+    $('.user-feedback').find('h1').css({
+        'margin-top': ($('.user-feedback').height()/2) - ($('.user-feedback').find('h1').height())
+    });
+
     $('.user-feedback').animate({
-        'opacity': '0.8'
+        'opacity': '0.6'
     }, 500, function(){
 
-        $('.user-feedback').animate({
-            'opacity': '0'
-        }, 500, function(){
+        // $('.user-feedback').animate({
+        //     'opacity': '0'
+        // }, 500, function(){
             
-            //$('.user-feedback').css('display', 'none');
-        });
+        //     //$('.user-feedback').css('display', 'none');
+        // });
     });
 }
 
@@ -357,69 +371,16 @@ function clearctx(ctx){
  * QUESTION
  */
 
- var qu = [
-            ['rep 1', 'rep 2', 'rep 3'],
-            ['rep 1', 'rep 2', 'rep 3', 'rep 4'],
-            ['rep 1', 'rep 2', 'rep 3', 'rep 4', 'rep 5', 'rep 6', 'rep 7', 'rep 8']
-        ];
-
-var quColor = [ 'red',
-                'blue',
-                'yellow',
-                'green',
-                'purple',
-                'CadetBlue',
-                'Crimson',
-                'DarkOrange'
-            ];
-
-function buzzerTransition(step){
-    
-    $('.page-question').children().animate({
-        'opacity': '0'
-    }, 500, function(){
-        
-        setBuzzerButton(step);
-    });
-}
-
 function setBuzzerButton(step){
 
-    var quid = step - 1;
-    var nbButton = qu[quid].length;
+    var bbHeight = $('.buzzer-button-'+step).height();
+    var bbtxtHeight = $('.buzzer-button-'+step).find('h2').height();
 
-    $('.page-question').css('background-color', 'black')
-    $('.page-question').html('');
-    
-    for(var i = 0; i < nbButton; i++){
-
-        $('.page-question').append('<div class="buzzer-button" style="background-color: '+quColor[i]+';"><h2>'+qu[quid][i]+'</h2></div>');
-    }
-    
-    var ansHeight = 100 / nbButton;
-    
-    $('.buzzer-button').css('height', ansHeight+'%');
-    
-    $('.buzzer-button').find('h2').css({
-        'margin-top': $('.buzzer-button').height()/2 - $('.buzzer-button').find('h2').height()/2
+    $('.bb').find('h2').css({
+        'margin-top': (bbHeight/2) - (bbtxtHeight/2)
     });
-    
-    setClickButton();
-
-    if(step == 1){
-
-        $('.buzzer-button').css('opacity', '1');
-    }else{
-
-        $('.page-question').children().animate({
-            'opacity': '1'
-        }, 500, function(){
-            
-        });
-    }
-    
-    
 }
+
 function setClickButton(step){
 
     $('.page-question-'+step).children().css({

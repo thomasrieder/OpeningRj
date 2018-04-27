@@ -44,9 +44,9 @@ app.get('/', function(req, res){
  * 2 -> question 2
  * 3 -> question 3
  * 4 -> question 4
- * 10 -> question draw logo
- * 20 -> question play video
- * 30 -> question draw signatur
+ * 10 -> draw logo
+ * 20 -> play video
+ * 30 -> draw signatur
  */
 
 var idDisplay;
