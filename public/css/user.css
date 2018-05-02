@@ -2,6 +2,7 @@
 *{
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 body{
@@ -49,8 +50,16 @@ body{
 .page-wait{
     display: none;
     background-color: white;
-    transition: none !important;
-    padding-top: 50%;
+    transition: background-color 2000ms !important;
+    /* padding-top: 50%; */
+}
+
+.page-halfcolor{
+    display: none;
+}
+
+.page-fs{
+    display: none;
 }
 
 .page-draw{
@@ -59,6 +68,20 @@ body{
 
 .page-video{
     display: none;
+}
+
+.page-laftblink{
+    display: none;
+    transition: background-color 100ms !important;
+}
+
+.page-black{
+    display: none;
+}
+
+.page-change{
+    padding-top: 40px;
+    display: none; 
 }
 
 .page-cross{
@@ -80,11 +103,14 @@ li {
     margin-left: 1em;
 }
 
+/**
+* FS PAGE
+*/
 .fs-button{
 
-    display: none;
-    position: absolute;
-    background-color: lightblue;
+    border: 0;
+    outline: none;
+    background-color: yellow;
     width: 200px;
     height: 200px;
 }
@@ -98,8 +124,6 @@ li {
 /**
 * QUESTION PAGE
 */
-
-
 .buzzer-button-1{
     
     float: left;
@@ -112,7 +136,7 @@ li {
     float: left;
     display: block;
     width: 100%;
-    height: 14.28571428571429%;
+    height: 16.66666666666667%;
 }
 .buzzer-button-3{
     
@@ -121,40 +145,6 @@ li {
     width: 100%;
     height: 20%;
 }
-
-
-.red{
-
-    background-color: red;
-}
-
-.yellow{
-
-    background-color: yellow;
-}
-
-.green{
-
-    background-color: green;
-}
-
-.blue{
-
-    background-color: blue;
-}
-
-.over{
-    position: absolute;
-    top:0;  left:0;
-    display: none;
-    opacity: 0;
-    width: 100%;
-    height:100%;
-    transition: background-color 500ms ease-in-out;
-    -webkit-transition: background-color 500ms ease-in-out;
-    -moz-transition: background-color 500ms ease-in-out;
-    -o-transition: background-color 500ms ease-in-out;
-  }
 
 /**
 * DRAW PAGE
@@ -205,4 +195,24 @@ li {
     top: 0;  left: 0;
     max-width: 100%;
     height: auto;
+}
+
+/**
+* CHANGE PAGE
+*/
+
+.btn-change{
+    border: 0;
+    background-color: white;
+    outline: none;
+    color: black;
+    margin-top: 80px;
+    padding: 15px 60px;
+    font-size: 26pt;
+    transition: background-color 500ms ease-in-out;
+}
+
+.change-title{
+    margin-top: 80px;
+    color: yellow;
 }

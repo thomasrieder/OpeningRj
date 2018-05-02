@@ -2,10 +2,17 @@ var ip = location.host;
 var socket = io.connect(ip);
 
 //update the interface to the current step
-socket.on('welcome', function(currentStep){
+socket.on('welcome', function(data){
 
+    currentStep = data.step;
+
+    if(data.loadVideo == 1){
+        
+        downloadVideo();
+    }
+    
     setStep(currentStep);
-    downloadVideo();
+    
 });
 
 $(document).ready(function(){
@@ -13,6 +20,7 @@ $(document).ready(function(){
     if(browserIsOk()){
 
         socket.emit('newUser');
+        setInterface();
     }else{
 
         socket.disconnect();
@@ -31,6 +39,11 @@ $(document).ready(function(){
 
 socket.on('setUserStep', function(data){
     
+    if(data.loadVideo == 1){
+        
+        downloadVideo();
+    }
+
     txtIsHide = data.txtIsHide;    
     setStep(data.step);
 });
@@ -52,6 +65,7 @@ function changeBrowser(){
 function setStep(step){
     
     isWaitBlink = 0;
+    isLastBlink = 0;
 
     if(step == 0){
 
@@ -75,6 +89,19 @@ function setStep(step){
         isWaitBlink = 1;
         waitBlink();
 
+    }else if(step == 110){
+        
+        setPage('page-halfcolor');
+        halfColor('green','yellow');
+
+    }else if(step == 111){
+        
+        setPage('page-halfcolor');
+        halfColor('blue','red');
+
+    }else if(step == 112){
+        
+        setPage('page-fs');
     }else if(step > 0 && step < 10){
         
         setPage('page-question-'+step, step);  
@@ -92,25 +119,39 @@ function setStep(step){
     }else if(step == 21){
 
         playVideo();
+    }else if(step == 40){
+        
+        setPage('page-laftblink');
+        isLastBlink = 1;
+        lastBlink();
+
+    }else if(step == 50){
+        
+        setPage('page-black');
+
+    }else if(step == 60){
+        
+        setPage('page-change');
+
     }else if(step == 210){
         
         crossIsBlinking = 1;
         blinkCross();
         setPage('page-cross');
-    }else if(step = 900){
-        
-        setPage('page-welcome');
-        $('.page-welcome').html('<h1>Merci d\'avoir participer à ce test</h1><h2 style="margin-top: 50px;">On a quelques questions à te poser pour améliorer l\'expérience.<br><br></h2><h2>Merci de prendre quelques minutes pour ça :)</h2><br><br><h2><a  style="color: yellow;" href="https://goo.gl/forms/kxBuQPTyzEKuDEuD3">ça se passe ici</a></h2>');
     }
 }
 
 function setPage(newPage, step){
 
-    $('.page').animate({
+    var prevPage = $('.page').filter(function() {
+        return $(this).css('display').toLowerCase().indexOf('block') > -1
+    })
+
+    prevPage.animate({
         'opacity': 0
     }, 500, function(){
         
-        $('.page').css('display', 'none');
+        prevPage.css('display', 'none');
         $('.'+newPage).css('display', 'block');
         
         if(step >= 1 && step <= 10){
@@ -126,30 +167,74 @@ function setPage(newPage, step){
     });
 }
 
+function setInterface(){
+
+    setBlinkWait();
+    setFsButton();
+    setChangeButton();
+}
+
 /**
  * BLINK CROSS
  */
 
-eo
+var crossIsBlinking = 0;
+var crossOp;
+var crossTime;
+
+function blinkCross(){
+
+    crossOp = Math.random();
+    crossTime = Math.floor(Math.random() * 60) + 10;
+    console.log(crossTime);
+    
+    $('.page-cross').css('opacity', crossOp);
+    
+
+    setTimeout(function(){
+
+        if(crossIsBlinking){
+            blinkCross();
+        }
+    }, crossTime);
+}
 
 /**
  * WAIT BLINK
  */
 
+function setBlinkWait(){
+
+    var pHeight = $('.page-wait').height() / 2;
+    var txtWaitHeight = $('#waitText').height();
+
+    $('#waitText').css({
+        'margin-top': (pHeight - txtWaitHeight)
+    });
+}
+
+
 var isWaitBlink;
 var opRandom;
 var txtIsHide = 0;
+var isBlack = 1;
 
 function waitBlink(){
 
-    opRandom = Math.random() * 0.6;
+    if(isBlack){
 
-    $('.page-wait').css('background-color', 'rgba(255, 255, 255,'+opRandom+')');
+        $('.page-wait').css('background-color', 'rgba(255, 255, 255, 0.6)');
+        isBlack = 0;
+    }else{
+
+        $('.page-wait').css('background-color', 'rgba(255, 255, 255, 0.1)');
+        isBlack = 1;
+    }
 
     if(isWaitBlink){
         setTimeout(function(){
             waitBlink();
-        }, 100);
+        }, 2000);
     }
 }
 
@@ -162,35 +247,107 @@ function toggleText(){
         $('#waitText').css('display', 'block');
     }
 }
+/**
+ * LAST BLINK
+ */
+
+ var isLastBlink;
+function lastBlink(){
+    
+    lbRand = Math.random();
+    
+    $('.page-laftblink').css('background-color', 'rgba(255, 255, 255,'+lbRand+')');
+
+    if(isLastBlink){
+
+        setTimeout(function(){
+            lastBlink();
+        }, 100);
+    }
+}
+/**
+ * CHANGE BUTTON
+ */
+
+ function setChangeButton(){
+
+    $('.btn-change').click(function(){
+        
+        $(this).css('background-color', 'yellow');
+
+        $('.change-title').animate({
+            'opacity': '0'
+        }, 800, function(){
+
+            setTimeout(function(){
+                
+                crossIsBlinking = 1;
+                blinkCross();
+                setPage('page-cross');
+
+            }, 800);
+
+        });
+    });
+ }
+
+/**
+ * HALF COLOR
+ */
+
+ function halfColor(cOne, cTwo){
+
+    var whichIs = Math.floor((Math.random() * 2)+1);
+
+    if(whichIs == 1){
+
+        $('.page-halfcolor').css('background-color', cOne);
+    }else{
+
+        $('.page-halfcolor').css('background-color', cTwo);
+    }
+ }
+
+ /**
+  * FULLSCREEN
+  */
+
+function setFsButton(){
+
+    var pHeight = $('.page-fs').height() / 2;
+    var fsHeight = $('.fs-button').height() / 2;
+
+    $('.fs-button').css({
+        'margin-top': (pHeight - fsHeight)
+    });
+
+    $('.fs-button').click(function(){
+        
+        toggleFullScreen(document.body);
+        $(this).css('display', 'none');
+    });
+}
 
 /**
  * VIDEO
  */
-var video;
 
  function playVideo(){
 
     console.log('play video');
     $('#vid').css('display', 'block');
     $('.page-video').css('background-color', 'black');
-    //$('#vid').get(0).play();
-    
-    $('#vid').mediaelementplayer({
-        success: function(mediaElement) {
-            mediaElement.play(); // autoplay
-        }
-    });
+    $('#vid').get(0).play();
  }
 
  function downloadVideo(){
 
-    $('.page-video').append('<video muted playsinline src="https://s3.eu-central-1.amazonaws.com/rj2018/vid.mp4" id="vid" preload="auto"></video>');
+    $('.page-video').append('<video muted playsinline src="https://s3.eu-central-1.amazonaws.com/rj2018/live_smartphone.mp4" id="vid" preload="auto"></video>');
 
     
     console.log('load video');
     
-    $('#vid').get(0).load();
-
+    video = $('#vid').get(0).load();
     //check if the video is ready to play
     checkVideo();
  }
@@ -224,7 +381,7 @@ function checkVideo(){
     setTimeout(function(){
 
         if(!isLoaded){
-        checkVideo();
+            checkVideo();
         }
         
     }, 500);
@@ -370,6 +527,7 @@ function setBuzzerButton(step){
 
 function setClickButton(step){
 
+
     $('.page-question-'+step).children().css({
         'opacity': '1',
         'display': 'block'
@@ -423,6 +581,7 @@ function yellowSreen(){
 
 
 function toggleFullScreen(elem) {
+    
     // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
     if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
         if (elem.requestFullScreen) {

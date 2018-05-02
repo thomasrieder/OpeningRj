@@ -17,7 +17,7 @@ app.get('/', function(req, res){
     res.sendFile(path.join(__dirname+'/public/pages/user.html'));
 
 })
-.get('/admin', function(req, res){
+.get('/adminbadass', function(req, res){
     
     res.sendFile(path.join(__dirname+'/public/pages/admin.html'));
 
@@ -38,15 +38,18 @@ app.get('/', function(req, res){
  * 100 -> yellow screen
  * 105 -> veille
  * 106 -> hide text
- * 110 -> half of clients
+ * 110 -> half of clients (green yellow)
+ * 111 -> half of clients (blue, red)
+ * 112 -> page fullscreen
  * 210 -> show Cross
  * 1 -> question 1
  * 2 -> question 2
  * 3 -> question 3
- * 4 -> question 4
  * 10 -> draw logo
  * 20 -> play video
- * 30 -> draw signatur
+ * 40 -> blink 100%
+ * 50 -> black screen
+ * 60 -> différence dans ta vie ?
  */
 
 var idDisplay;
@@ -56,6 +59,7 @@ var winner = [];
 var users = [];
 var nbVideoLoaded = 0;
 var txtIsHide = 0;
+var loadVideo = 0;
 
 io.on('connection', function(socket){
 
@@ -69,7 +73,7 @@ io.on('connection', function(socket){
             
             winner.push(socket.id);
         }
-        socket.emit('welcome', step);
+        socket.emit('welcome', {step: step, loadVideo: loadVideo});
     
         for(var i = 0; i < idAdmin.length; i++){
             
@@ -132,6 +136,11 @@ io.on('connection', function(socket){
         
         step = data.step;
 
+        if(step == 1){
+
+            loadVideo = 1;
+        }
+
         console.log('step: '+step);
         
         if(step == 106){
@@ -144,7 +153,7 @@ io.on('connection', function(socket){
             }
         }
         socket.emit('stepSetted', {step: step, txtIsHide: txtIsHide});
-        socket.broadcast.emit('setUserStep', {step: step, txtIsHide: txtIsHide});
+        socket.broadcast.emit('setUserStep', {step: step, txtIsHide: txtIsHide, loadVideo: loadVideo});
     });
 
     socket.on('sendImage', function(data){
