@@ -114,6 +114,15 @@ socket.on('newImage', function(data){
         'top': topPos
     }, 1000, function(){
         
-        
+        setTimeout(function(){
+
+            $('#'+id).animate({
+                'opacity': '0',
+                'width': '0',
+                'height': '0'
+            }, 500, function(){
+                $('#'+id).remove();
+            });
+        },3000);
     });
 });

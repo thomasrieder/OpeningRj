@@ -10,7 +10,9 @@ socket.on('welcome', function(data){
         
         downloadVideo();
     }
-    
+    setTimeout(function () {
+        window.scrollTo(0, 1);
+      }, 1000);
     setStep(currentStep);
     
 });
@@ -92,12 +94,12 @@ function setStep(step){
     }else if(step == 110){
         
         setPage('page-halfcolor');
-        halfColor('green','yellow');
+        halfColor('yellow','blue');
 
     }else if(step == 111){
         
         setPage('page-halfcolor');
-        halfColor('blue','red');
+        halfColor('green','red');
 
     }else if(step == 112){
         
@@ -323,6 +325,7 @@ function setFsButton(){
 
     $('.fs-button').click(function(){
         
+        $('.page-fs').css('background-color', 'yellow');
         toggleFullScreen(document.body);
         $(this).css('display', 'none');
     });
@@ -331,6 +334,18 @@ function setFsButton(){
 /**
  * VIDEO
  */
+
+function setVideo(){
+
+    var vidH = $('#vid').height();
+    var pageH = $('.page-video').height();
+    var vidTop = -((vidH - pageH) / 2);
+
+    $('#vid').css({
+        'top': vidTop+'px'
+    });
+
+}
 
  function playVideo(){
 
@@ -344,6 +359,7 @@ function setFsButton(){
 
     $('.page-video').append('<video muted playsinline src="https://s3.eu-central-1.amazonaws.com/rj2018/live_smartphone.mp4" id="vid" preload="auto"></video>');
 
+    setVideo();
     
     console.log('load video');
     
