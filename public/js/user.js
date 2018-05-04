@@ -258,7 +258,7 @@ function lastBlink(){
     
     lbRand = Math.random();
     
-    $('.page-laftblink').css('background-color', 'rgba(255, 255, 255,'+lbRand+')');
+    $('.page-laftblink').css('background-color', 'rgba(255, 255, 0,'+lbRand+')');
 
     if(isLastBlink){
 
@@ -272,6 +272,15 @@ function lastBlink(){
  */
 
  function setChangeButton(){
+
+    //var cWidth = $('.page-change').width();
+    
+
+    $('.btn-change').css({
+        'position': 'absolute',
+        'left': '0',
+        'bottom': '190px'
+    });
 
     $('.btn-change').click(function(){
         

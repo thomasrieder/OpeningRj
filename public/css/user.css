@@ -80,7 +80,6 @@ body{
 }
 
 .page-change{
-    padding-top: 40px;
     display: none; 
 }
 
@@ -206,13 +205,15 @@ li {
     background-color: white;
     outline: none;
     color: black;
-    margin-top: 80px;
+    margin-top: 180px;
     padding: 15px 60px;
     font-size: 26pt;
+    width: 100%;
     transition: background-color 500ms ease-in-out;
 }
 
 .change-title{
-    margin-top: 80px;
+    margin-top: 190px;
+    font-size: 20pt;
     color: yellow;
 }
